@@ -1,5 +1,7 @@
 package laba4;
 
+import java.time.DateTimeException;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.time.LocalDate;
 
@@ -63,11 +65,22 @@ public class Reader {
 
 
     private void checkCorrectDay(int dayOut) {
-        LocalDate check = LocalDate.of(2024, this.numMonth, dayOut);
+        try {
+            LocalDate.of(2024, this.numMonth, dayOut);
+        } catch (IllegalArgumentException | DateTimeException e) {
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
     }
 
     private void checkCorrectNumMonth(int numMonth) {
-        LocalDate check = LocalDate.of(2024, numMonth, this.dayOut);
+        try {
+            LocalDate.of(2024, numMonth, this.dayOut);
+        } catch (IllegalArgumentException | DateTimeException e) {
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
+
     }
 
     public void setDayOut(int dayOut) {
@@ -81,7 +94,12 @@ public class Reader {
     }
 
     private void checkTwoValDate(int dayOut, int numMonth) {
-        LocalDate check = LocalDate.of(2024, numMonth, dayOut);
+        try {
+            LocalDate.of(2024, numMonth, dayOut);
+        } catch (IllegalArgumentException | DateTimeException e) {
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
     }
 
     public boolean checkOnTime(int dayOut, int numMonth) {
