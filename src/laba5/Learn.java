@@ -50,7 +50,7 @@ public abstract class Learn {
 
     public void setAge(int age) {
         if (age < 0 || age > 135)
-            throw new IllegalArgumentException("возраст некорректный");
+            throw new IllegalArgumentException("\nОшибка: возраст" + age + " некорректный");
         else
             this.age = age;
     }

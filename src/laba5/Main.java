@@ -50,12 +50,25 @@ public class Main {
 
     public static Student addStudent(String name, String gender, int age, List<Integer> session,
                                      List<Integer> termPapers) {
-        return new Student(name, gender, age, session, termPapers);
+        try {
+            return new Student(name, gender, age, session, termPapers);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+        return null;
     }
 
     public static SchoolChild addSchoolChild(String name, String gender, int age, boolean regionOlympiad,
                                              boolean firstPlace, boolean prizeCity, Map<String, Integer> marks) {
-        return new SchoolChild(name, gender, age, regionOlympiad, firstPlace, prizeCity, marks);
+        try {
+            return new SchoolChild(name, gender, age, regionOlympiad, firstPlace, prizeCity, marks);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+        return null;
+
     }
 
     public static void checkAllScholarship(ArrayList<Learn> learns) {

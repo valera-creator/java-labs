@@ -103,7 +103,7 @@ public class SchoolChild extends Learn {
         for (Map.Entry<String, Integer> entry : marks.entrySet()) {
             val = entry.getValue();
             if (val < 2 || val > 5)
-                throw new IllegalArgumentException("оценки должны быть в диапазоне от 2 до 5");
+                throw new IllegalArgumentException("оценки должны быть в диапазоне от 2 до 5, нашлось: " + val);
         }
         this.marks = marks;
     }
