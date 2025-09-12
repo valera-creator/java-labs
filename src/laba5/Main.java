@@ -24,7 +24,7 @@ public class Main {
                 new ArrayList<>(List.of(5, 5, 5, 5)), new ArrayList<>(List.of(5, 5, 5, 5)));
 
         SchoolChild schoolSahar = new SchoolChild("Сахар", boy, 16,
-                false, false, false,
+                true, false, false,
                 Map.of(Subjects.MATHEMATICS, 5, Subjects.RUSSIAN, 5, Subjects.HISTORY, 5,
                         Subjects.ENGLISH, 5, Subjects.PHYSICS, 4, Subjects.CHEMISTRY, 4));
 

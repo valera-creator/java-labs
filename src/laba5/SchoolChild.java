@@ -4,9 +4,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public class SchoolChild extends Learn {
-    protected boolean regionalOlympiad;
-    protected boolean schoolFirstPlace;
-    protected boolean prizeCity;
+    private boolean regionalOlympiad;
+    private boolean schoolFirstPlace;
+    private boolean prizeCity;
     private Map<String, Integer> marks;
 
     public SchoolChild(String name, String gender, int age, boolean regionalOlympiad,
@@ -15,7 +15,7 @@ public class SchoolChild extends Learn {
         this.regionalOlympiad = regionalOlympiad;
         this.schoolFirstPlace = schoolFirstPlace;
         this.prizeCity = prizeCity;
-        this.marks = marks;
+        this.setMarks(marks);
     }
 
     @Override
@@ -71,5 +71,40 @@ public class SchoolChild extends Learn {
 
     protected boolean checkOlympiad() {
         return regionalOlympiad || schoolFirstPlace || prizeCity;
+    }
+
+    public boolean getRegionalOlympiad() {
+        return this.regionalOlympiad;
+    }
+
+    public boolean getSchoolFirstPlace() {
+        return this.schoolFirstPlace;
+    }
+
+    public boolean getPrizeCity() {
+        return this.prizeCity;
+    }
+
+    public void setRegionalOlympiad(boolean regionalOlympiad) {
+        this.regionalOlympiad = regionalOlympiad;
+    }
+
+    public void setSchoolFirstPlace(boolean schoolFirstPlace) {
+        this.schoolFirstPlace = schoolFirstPlace;
+    }
+
+    private void setPrizeCity(boolean prizeCity) {
+        this.prizeCity = prizeCity;
+    }
+
+    public void setMarks(Map<String, Integer> marks) {
+        int val;
+
+        for (Map.Entry<String, Integer> entry : marks.entrySet()) {
+            val = entry.getValue();
+            if (val < 2 || val > 5)
+                throw new IllegalArgumentException("оценки должны быть в диапазоне от 2 до 5");
+        }
+        this.marks = marks;
     }
 }

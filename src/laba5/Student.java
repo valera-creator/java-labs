@@ -8,8 +8,8 @@ public class Student extends Learn {
 
     public Student(String name, String gender, int age, List<Integer> session, List<Integer> termPapers) {
         super(name, gender, age);
-        this.session = session;
-        this.termPapers = termPapers;
+        this.setSession(session);
+        this.setTermPapers(termPapers);
     }
 
     @Override
@@ -64,5 +64,30 @@ public class Student extends Learn {
         }
         info.append("\n");
         return info.toString();
+    }
+
+    private void checkCorrectMarks(List<Integer> marks) {
+        for (int mark : marks) {
+            if (mark < 2 || mark > 5)
+                throw new IllegalArgumentException("оценки должны быть в диапазоне от 2 до 5");
+        }
+    }
+
+    public List<Integer> getSession() {
+        return this.session;
+    }
+
+    public List<Integer> getTermPapers() {
+        return this.termPapers;
+    }
+
+    public void setSession(List<Integer> marks) {
+        checkCorrectMarks(marks);
+        this.session = marks;
+    }
+
+    public void setTermPapers(List<Integer> marks) {
+        checkCorrectMarks(marks);
+        this.termPapers = marks;
     }
 }

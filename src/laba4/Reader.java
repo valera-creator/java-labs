@@ -17,7 +17,7 @@ public class Reader {
     // конструктор с параметрами
     public Reader(String lastNameReader, Book book, int dayOut, int numMonth) {
         this.setLastNameReader(lastNameReader);
-        this.setBook(book);
+        this.book = book;
         this.setNumMonth(numMonth);
         this.setDayOut(dayOut);
     }
@@ -25,7 +25,7 @@ public class Reader {
     // конструктор копирования
     public Reader(Reader reader) {
         this.setLastNameReader(reader.lastNameReader);
-        this.setBook(new Book(reader.book));
+        this.book = new Book(reader.book); // нет смысла юзать сеттер, т.к. нет проверок никаких на значение
         this.setNumMonth(reader.numMonth);
         this.setDayOut(reader.dayOut);
     }
