@@ -80,9 +80,12 @@ public class Reader {
         this.numMonth = numMonth;
     }
 
+    private void checkTwoValDate(int dayOut, int numMonth) {
+        LocalDate check = LocalDate.of(2024, numMonth, dayOut);
+    }
+
     public boolean checkOnTime(int dayOut, int numMonth) {
-        this.checkCorrectDay(dayOut);
-        this.checkCorrectNumMonth(numMonth);
+        this.checkTwoValDate(dayOut, numMonth);
 
         if (numMonth < this.numMonth)
             return true;
