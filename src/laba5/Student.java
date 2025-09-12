@@ -69,7 +69,7 @@ public class Student extends Learn {
     private void checkCorrectMarks(List<Integer> marks) {
         for (int mark : marks) {
             if (mark < 2 || mark > 5)
-                throw new IllegalArgumentException("оценки должны быть в диапазоне от 2 до 5");
+                throw new IllegalArgumentException("оценки должны быть в диапазоне от 2 до 5, нашлось " + mark);
         }
     }
 
