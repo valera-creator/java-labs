@@ -1,0 +1,76 @@
+package laba5;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) {
+
+        final String girl = "Ж";
+        final String boy = "М";
+
+        Student studentValera = new Student("Валера", boy, 19,
+                new ArrayList<>(List.of(5, 5, 5, 5)), new ArrayList<>(List.of(5, 5, 5, 5)));
+
+        Student studentRayana = new Student("Раяна", girl, 17,
+                new ArrayList<>(List.of(5, 5, 5, 4)), new ArrayList<>(List.of(5, 5, 5, 5)));
+
+        Student studentBear = new Student("Миша", boy, 19,
+                new ArrayList<>(List.of(5, 5, 5, 4)), new ArrayList<>());
+
+        Student studentAlina = new Student("Алина", girl, 19,
+                new ArrayList<>(List.of(5, 5, 5, 5)), new ArrayList<>(List.of(5, 5, 5, 5)));
+
+        SchoolChild schoolSahar = new SchoolChild("Сахар", boy, 16,
+                false, false, false,
+                Map.of(Subjects.MATHEMATICS, 5, Subjects.RUSSIAN, 5, Subjects.HISTORY, 5,
+                        Subjects.ENGLISH, 5, Subjects.PHYSICS, 4, Subjects.CHEMISTRY, 4));
+
+        SchoolChild schoolAnna = new SchoolChild("Анна", girl, 15,
+                true, false, false,
+                Map.of(Subjects.MATHEMATICS, 5, Subjects.RUSSIAN, 5, Subjects.HISTORY, 5,
+                        Subjects.ENGLISH, 5, Subjects.PHYSICS, 4, Subjects.CHEMISTRY, 4));
+
+        SchoolChild schoolMilena = new SchoolChild("Милена", girl, 17,
+                true, true, true,
+                Map.of(Subjects.MATHEMATICS, 5, Subjects.RUSSIAN, 5, Subjects.HISTORY, 5,
+                        Subjects.ENGLISH, 5, Subjects.PHYSICS, 4, Subjects.CHEMISTRY, 4));
+
+        ArrayList<SchoolChild> pupils = new ArrayList<>(List.of(schoolSahar, schoolAnna, schoolMilena));
+        ArrayList<Student> students = new ArrayList<>(List.of(studentValera, studentAlina, studentRayana, studentBear));
+        ArrayList<Learn> learns = new ArrayList<>(List.of(studentValera, studentAlina, studentRayana, studentBear,
+                schoolSahar, schoolAnna, schoolMilena));
+
+        checkGirls(pupils, girl);
+        checkMarkStudents(students);
+        checkAllScholarship(learns);
+    }
+
+    public static void checkAllScholarship(ArrayList<Learn> learns) {
+        System.out.println("\nшкольники и студенты, которые должны получать специальную стипендию:");
+        for (Learn learn : learns) {
+            if (learn.checkScholarship())
+                System.out.println(learn.getAllInfo());
+        }
+
+    }
+
+    public static void checkMarkStudents(ArrayList<Student> students) {
+        System.out.println("\nстуденты с оценками за курсовые:");
+        for (Student student : students) {
+            if (!student.checkEmptyMarks())
+                System.out.println(student.getAllInfo());
+        }
+    }
+
+    public static void checkGirls(ArrayList<SchoolChild> pupils, String girl) {
+        System.out.println("школьницы-олимпиадницы:");
+        for (SchoolChild pupil : pupils) {
+            if (girl.equals(pupil.gender) && pupil.checkOlympiad())
+                System.out.println(pupil.getInfo());
+        }
+    }
+
+}
