@@ -11,29 +11,29 @@ public class Main {
         final String girl = "Ж";
         final String boy = "М";
 
-        Student studentValera = new Student("Валера", boy, 19,
+        Student studentValera = addStudent("Валера", boy, 19,
                 new ArrayList<>(List.of(5, 5, 5, 5)), new ArrayList<>(List.of(5, 5, 5, 5)));
 
-        Student studentRayana = new Student("Раяна", girl, 17,
+        Student studentRayana = addStudent("Раяна", girl, 17,
                 new ArrayList<>(List.of(5, 5, 5, 4)), new ArrayList<>(List.of(5, 5, 5, 5)));
 
-        Student studentBear = new Student("Миша", boy, 19,
+        Student studentBear = addStudent("Миша", boy, 19,
                 new ArrayList<>(List.of(5, 5, 5, 4)), new ArrayList<>());
 
-        Student studentAlina = new Student("Алина", girl, 19,
+        Student studentAlina = addStudent("Алина", girl, 19,
                 new ArrayList<>(List.of(5, 5, 5, 5)), new ArrayList<>(List.of(5, 5, 5, 5)));
 
-        SchoolChild schoolSahar = new SchoolChild("Сахар", boy, 16,
+        SchoolChild schoolSahar = addSchoolChild("Сахар", boy, 16,
                 true, false, false,
                 Map.of(Subjects.MATHEMATICS, 5, Subjects.RUSSIAN, 5, Subjects.HISTORY, 5,
                         Subjects.ENGLISH, 5, Subjects.PHYSICS, 4, Subjects.CHEMISTRY, 4));
 
-        SchoolChild schoolAnna = new SchoolChild("Анна", girl, 15,
+        SchoolChild schoolAnna = addSchoolChild("Анна", girl, 15,
                 true, false, false,
                 Map.of(Subjects.MATHEMATICS, 5, Subjects.RUSSIAN, 5, Subjects.HISTORY, 5,
                         Subjects.ENGLISH, 5, Subjects.PHYSICS, 4, Subjects.CHEMISTRY, 4));
 
-        SchoolChild schoolMilena = new SchoolChild("Милена", girl, 17,
+        SchoolChild schoolMilena = addSchoolChild("Милена", girl, 17,
                 true, true, true,
                 Map.of(Subjects.MATHEMATICS, 5, Subjects.RUSSIAN, 5, Subjects.HISTORY, 5,
                         Subjects.ENGLISH, 5, Subjects.PHYSICS, 4, Subjects.CHEMISTRY, 4));
@@ -46,6 +46,16 @@ public class Main {
         checkGirls(pupils, girl);
         checkMarkStudents(students);
         checkAllScholarship(learns);
+    }
+
+    public static Student addStudent(String name, String gender, int age, List<Integer> session,
+                                     List<Integer> termPapers) {
+        return new Student(name, gender, age, session, termPapers);
+    }
+
+    public static SchoolChild addSchoolChild(String name, String gender, int age, boolean regionOlympiad,
+                                             boolean firstPlace, boolean prizeCity, Map<String, Integer> marks) {
+        return new SchoolChild(name, gender, age, regionOlympiad, firstPlace, prizeCity, marks);
     }
 
     public static void checkAllScholarship(ArrayList<Learn> learns) {
