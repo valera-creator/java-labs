@@ -60,8 +60,8 @@ public class SchoolChild extends Learn {
     public String getAllInfo() {
         StringBuilder info = new StringBuilder(); // исправил String на это по подсказке
         info.append("Имя: ").append(this.name).append(", Фамилия: ").append(this.lastname).append(
-                ", Пол: ").append(this.gender).append(", Возраст: ").append(this.age).append(", Школа "
-        ).append(this.schoolNum).append(" ");
+                ", Пол: ").append(this.gender).append(", Возраст: ").append(this.age).append(", Школа: "
+        ).append(this.schoolNum).append("\n");
 
         if (this.regionalOlympiad)
             info.append("участие в областной олимпиаде: да\n");
