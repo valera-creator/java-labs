@@ -100,6 +100,10 @@ public class SchoolChild extends Learn {
     public void setMarks(Map<String, Integer> marks) {
         int val;
 
+        if ((!marks.containsKey(Subjects.ENGLISH)) || (!marks.containsKey(Subjects.RUSSIAN)) ||
+                (!marks.containsKey(Subjects.MATHEMATICS)) || (!marks.containsKey(Subjects.HISTORY)))
+            throw new IllegalArgumentException(Subjects.ENGLISH + ", " + Subjects.RUSSIAN + ", " + Subjects.MATHEMATICS
+                    + ", " + Subjects.HISTORY + " должны быть переданы обязательно");
         for (Map.Entry<String, Integer> entry : marks.entrySet()) {
             val = entry.getValue();
             if (val < 2 || val > 5)
