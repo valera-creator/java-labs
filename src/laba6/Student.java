@@ -98,6 +98,8 @@ public class Student extends Learn {
 
     public void setSession(List<Integer> marks) {
         checkCorrectMarks(marks);
+        if (marks.isEmpty())
+            throw new IllegalArgumentException("передан пустой список оценок");
         this.session = marks;
     }
 
