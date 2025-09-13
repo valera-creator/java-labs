@@ -1,8 +1,9 @@
 package laba6;
 
+import java.util.Comparator;
 import java.util.Objects;
 
-public abstract class Learn implements Comparable<Learn> {
+public abstract class Learn {
     protected String name;
     protected String lastname;
     protected String gender;
@@ -26,10 +27,11 @@ public abstract class Learn implements Comparable<Learn> {
                 this.age + ", средний балл: " + String.format("%.2f", this.getAvgScore());
     }
 
-    // сравнение по фамилиям
-    public int compareTo(Learn other) {
-        return this.lastname.compareTo(other.lastname);
-    }
+    public static final Comparator<Learn> BY_LASTNAME =
+            Comparator.comparing(Learn::getLastname);
+
+    public static final Comparator<Learn> BY_MARK =
+            Comparator.comparing(Learn::getAvgScore);
 
     public abstract boolean checkScholarship();
 

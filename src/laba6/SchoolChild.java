@@ -1,22 +1,28 @@
 package laba6;
 
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
 
 public class SchoolChild extends Learn {
+    private int schoolNum;
     private boolean regionalOlympiad;
     private boolean schoolFirstPlace;
     private boolean prizeCity;
     private Map<String, Integer> marks;
 
-    public SchoolChild(String name, String lastname, String gender, int age, boolean regionalOlympiad,
+    public SchoolChild(String name, String lastname, String gender, int age, int schoolNum, boolean regionalOlympiad,
                        boolean schoolFirstPlace, boolean prizeCity, Map<String, Integer> marks) {
         super(name, lastname, gender, age);
+        this.setSchoolNum(schoolNum);
         this.regionalOlympiad = regionalOlympiad;
         this.schoolFirstPlace = schoolFirstPlace;
         this.prizeCity = prizeCity;
         this.setMarks(marks);
     }
+
+    public static final Comparator<SchoolChild> BY_MARK_NUM_SCHOOL = Comparator.comparing(SchoolChild::getAvgScore).
+            reversed().thenComparing(SchoolChild::getSchoolNum);
 
     @Override
     public boolean checkScholarship() {
@@ -39,11 +45,24 @@ public class SchoolChild extends Learn {
             return mark / cntMarks;
     }
 
+    public int getSchoolNum() {
+        return this.schoolNum;
+    }
+
+    private void setSchoolNum(int schoolNum) {
+        if (schoolNum < 1)
+            throw new IllegalArgumentException("Ошибка: номер школы не может быть меньше 1");
+        else
+            this.schoolNum = schoolNum;
+    }
+
     @Override
     public String getAllInfo() {
         StringBuilder info = new StringBuilder(); // исправил String на это по подсказке
         info.append("Имя: ").append(this.name).append(", Фамилия: ").append(this.lastname).append(
-                ", Пол: ").append(this.gender).append(", Возраст: ").append(this.age).append(", Школ;\n");
+                ", Пол: ").append(this.gender).append(", Возраст: ").append(this.age).append(", Школа "
+        ).append(this.schoolNum).append(" ");
+
         if (this.regionalOlympiad)
             info.append("участие в областной олимпиаде: да\n");
         else
@@ -60,9 +79,9 @@ public class SchoolChild extends Learn {
         if (this.marks.isEmpty())
             info.append("оценки: нет оценок");
         else {
-            info.append("оценки:\n");
+            info.append("оценки: ");
             for (Map.Entry<String, Integer> entry : marks.entrySet()) {
-                info.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+                info.append(entry.getKey()).append(": ").append(entry.getValue()).append(", ");
             }
         }
         info.append("\n");
@@ -89,7 +108,7 @@ public class SchoolChild extends Learn {
         return regionalOlympiad || schoolFirstPlace || prizeCity;
     }
 
-    public boolean getRegionalOlympiad() {
+    boolean getRegionalOlympiad() {
         return this.regionalOlympiad;
     }
 
