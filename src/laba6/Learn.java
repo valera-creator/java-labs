@@ -4,10 +4,11 @@ import java.util.Objects;
 
 public abstract class Learn {
     protected String name;
+    protected String lastname;
     protected String gender;
     protected int age;
 
-    public Learn(String name, String gender, int age) {
+    public Learn(String name, String lastname, String gender, int age) {
 //        типа проверка в конструкторе класса
 //        if (age < 0 || age > 135)
 //            throw new IllegalArgumentException("возраст некорректный");
@@ -15,13 +16,15 @@ public abstract class Learn {
 //            this.age = age;
 
         this.setName(name);
+        this.setLastname(lastname);
         this.setGender(gender);
         this.setAge(age);
     }
 
-    public String getInfo() {
-        return "имя: " + this.name + ", пол: " + gender + ", возраст: " + age;
+    public String toString() {
+        return "имя: " + this.name + ", фамилия:" + this.lastname + ", пол: " + gender + ", возраст: " + age;
     }
+
 
     public abstract boolean checkScholarship();
 
@@ -29,6 +32,10 @@ public abstract class Learn {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getLastname() {
+        return this.lastname;
     }
 
     public String getGender() {
@@ -39,9 +46,9 @@ public abstract class Learn {
         return this.age;
     }
 
-    private void checkCorrectName(String s) {
+    private void checkCorrectName(String s, String text) {
         if (!(this.capitalize(s)).equals(s))
-            throw new IllegalArgumentException("Имя не соотвествует правильному формату");
+            throw new IllegalArgumentException(text + " не соотвествует правильному формату");
     }
 
     private String capitalize(String s) {
@@ -51,7 +58,7 @@ public abstract class Learn {
     private void setName(String name) {
         if ((!Objects.equals(name, "")) && (!Objects.equals(name, " ")))
             try {
-                checkCorrectName(name);
+                checkCorrectName(name, "Имя");
                 this.name = name;
             } catch (IllegalArgumentException e) {
                 this.name = capitalize(name);
@@ -59,6 +66,19 @@ public abstract class Learn {
             }
         else
             throw new IllegalArgumentException("\nОшибка: имя не может быть пустотой или пробелом!");
+    }
+
+    private void setLastname(String lastname) {
+        if ((!Objects.equals(lastname, "")) && (!Objects.equals(lastname, " ")))
+            try {
+                checkCorrectName(lastname, "Фамилия");
+                this.lastname = lastname;
+            } catch (IllegalArgumentException e) {
+                this.lastname = capitalize(lastname);
+                System.err.println("Исправлена ошибка формата фамилии " + "\"" + lastname + "\" на " + this.lastname);
+            }
+        else
+            throw new IllegalArgumentException("\nОшибка: фамилия не может быть пустотой или пробелом!");
     }
 
     private void setGender(String gender) {

@@ -13,7 +13,7 @@ public abstract class Learn {
         this.setAge(age);
     }
 
-    public String getInfo() {
+    public String toString() {
         return "имя: " + this.name + ", пол: " + gender + ", возраст: " + age;
     }
 

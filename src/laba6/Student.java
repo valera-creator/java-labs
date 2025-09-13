@@ -6,8 +6,9 @@ public class Student extends Learn {
     private List<Integer> session;
     private List<Integer> termPapers;
 
-    public Student(String name, String gender, int age, List<Integer> session, List<Integer> termPapers) {
-        super(name, gender, age);
+    public Student(String name, String lastname, String gender, int age, List<Integer> session,
+                   List<Integer> termPapers) {
+        super(name, lastname, gender, age);
         this.setSession(session);
         this.setTermPapers(termPapers);
     }
@@ -46,8 +47,8 @@ public class Student extends Learn {
     @Override
     public String getAllInfo() {
         StringBuilder info = new StringBuilder(); // исправил String на это по подсказке
-        info.append("\nИмя: ").append(this.name).append(", Пол: ").append(this.gender).append(
-                ", Возраст: ").append(this.age).append(", Студент;\n");
+        info.append("\nИмя: ").append(this.name).append(", Фамилия: ").append(this.lastname).append(", Пол: ").append(
+                this.gender).append(", Возраст: ").append(this.age).append(", Студент;\n");
         info.append("Оценки за сессию: ");
         if (session.isEmpty())
             info.append("оценок за сессию нет;\n");

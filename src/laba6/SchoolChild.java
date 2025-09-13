@@ -9,9 +9,9 @@ public class SchoolChild extends Learn {
     private boolean prizeCity;
     private Map<String, Integer> marks;
 
-    public SchoolChild(String name, String gender, int age, boolean regionalOlympiad,
+    public SchoolChild(String name, String lastname, String gender, int age, boolean regionalOlympiad,
                        boolean schoolFirstPlace, boolean prizeCity, Map<String, Integer> marks) {
-        super(name, gender, age);
+        super(name, lastname, gender, age);
         this.regionalOlympiad = regionalOlympiad;
         this.schoolFirstPlace = schoolFirstPlace;
         this.prizeCity = prizeCity;
@@ -26,8 +26,8 @@ public class SchoolChild extends Learn {
     @Override
     public String getAllInfo() {
         StringBuilder info = new StringBuilder(); // исправил String на это по подсказке
-        info.append("Имя: ").append(this.name).append(", Пол: ").append(this.gender).append(
-                ", Возраст: ").append(this.age).append(", Школ;\n");
+        info.append("Имя: ").append(this.name).append(", Фамилия: ").append(this.lastname).append(
+                ", Пол: ").append(this.gender).append(", Возраст: ").append(this.age).append(", Школ;\n");
         if (this.regionalOlympiad)
             info.append("участие в областной олимпиаде: да\n");
         else

@@ -92,7 +92,7 @@ public class Main {
         System.out.println("школьницы-олимпиадницы:");
         for (SchoolChild pupil : pupils) {
             if (girl.equals(pupil.gender) && pupil.checkOlympiad())
-                System.out.println(pupil.getInfo());
+                System.out.println(pupil.toString());
         }
     }
 
