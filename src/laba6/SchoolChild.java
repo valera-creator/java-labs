@@ -24,6 +24,22 @@ public class SchoolChild extends Learn {
     }
 
     @Override
+    public double getAvgScore() {
+        double mark = 0;
+        int val, cntMarks = 0;
+
+        for (Map.Entry<String, Integer> entry : marks.entrySet()) {
+            val = entry.getValue();
+            mark += val;
+            cntMarks++;
+        }
+        if (mark == 0)
+            return mark;
+        else
+            return mark / cntMarks;
+    }
+
+    @Override
     public String getAllInfo() {
         StringBuilder info = new StringBuilder(); // исправил String на это по подсказке
         info.append("Имя: ").append(this.name).append(", Фамилия: ").append(this.lastname).append(

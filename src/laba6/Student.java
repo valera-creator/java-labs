@@ -18,6 +18,20 @@ public class Student extends Learn {
         return this.checkSession() && this.checkTermPapers();
     }
 
+    @Override
+    public double getAvgScore() {
+        double markSession = 0;
+        int cntMarks = 0;
+        for (int mark : this.session) {
+            markSession += mark;
+            cntMarks++;
+        }
+        if (markSession == 0)
+            return markSession;
+        else
+            return markSession / cntMarks;
+    }
+
     protected boolean checkEmptyMarks() {
         return termPapers.isEmpty();
     }

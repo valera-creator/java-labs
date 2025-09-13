@@ -1,9 +1,6 @@
 package laba6;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -36,7 +33,7 @@ public class Main {
         SchoolChild schoolMilena = addSchoolChild("Милена", "Миленина", girl, 17,
                 true, true, true,
                 Map.of(Subjects.MATHEMATICS, 5, Subjects.RUSSIAN, 5, Subjects.HISTORY, 5,
-                        Subjects.ENGLISH, 5, Subjects.PHYSICS, 4, Subjects.CHEMISTRY, 4));
+                        Subjects.ENGLISH, 5, Subjects.PHYSICS, 4, Subjects.CHEMISTRY, 5));
 
         ArrayList<SchoolChild> pupils = new ArrayList<>(List.of(schoolSahar, schoolAnna, schoolMilena));
         ArrayList<Student> students = new ArrayList<>(List.of(studentValera, studentAlina, studentRayana, studentBear));
@@ -46,6 +43,59 @@ public class Main {
         checkGirls(pupils, girl);
         checkMarkStudents(students);
         checkAllScholarship(learns);
+
+        bestSchool(pupils);
+        bestStudent(students);
+
+        sortedStudents(students);
+    }
+
+    public static void bestSchool(ArrayList<SchoolChild> pupils) {
+        if (pupils.isEmpty()) {
+            System.out.println("\nнет школьников");
+            return;
+        }
+        double maxMark = -1;
+        pupils.sort(Comparator.comparingDouble(SchoolChild::getAvgScore).reversed());
+        System.out.println("\nbest из школы: ");
+        for (SchoolChild schoolChild : pupils) {
+            if (maxMark == -1)
+                maxMark = schoolChild.getAvgScore();
+            else if (maxMark > schoolChild.getAvgScore()) {
+                return;
+            }
+            System.out.println(schoolChild);
+        }
+    }
+
+    public static void sortedStudents(ArrayList<Student> students) {
+        if (students.isEmpty()) {
+            System.out.println("\nнет студентов");
+            return;
+        }
+        students.sort(Comparator.comparingDouble(Student::getAvgScore).reversed());
+        System.out.println("\nстуденты, отсортированные по рейтингу успеваемости");
+        for (Student student : students)
+            System.out.println(student);
+
+    }
+
+    public static void bestStudent(ArrayList<Student> students) {
+        if (students.isEmpty()) {
+            System.out.println("\nнет студентов");
+            return;
+        }
+        double maxMark = -1;
+        students.sort(Comparator.comparingDouble(Student::getAvgScore).reversed());
+        System.out.println("\nbest студенты: ");
+        for (Student student : students) {
+            if (maxMark == -1)
+                maxMark = student.getAvgScore();
+            else if (maxMark > student.getAvgScore()) {
+                return;
+            }
+            System.out.println(student);
+        }
     }
 
     public static Student addStudent(String name, String lastname, String gender, int age, List<Integer> session,
@@ -73,11 +123,16 @@ public class Main {
     }
 
     public static void checkAllScholarship(ArrayList<Learn> learns) {
+        ArrayList<Learn> listScholarShip = new ArrayList<>();
         System.out.println("\nшкольники и студенты, которые должны получать специальную стипендию:");
         for (Learn learn : learns) {
             if (learn.checkScholarship())
-                System.out.println(learn.getAllInfo());
+                listScholarShip.add(learn);
         }
+        Collections.sort(listScholarShip);
+        for (Learn learn : listScholarShip)
+            System.out.println(learn);
+
 
     }
 
@@ -93,7 +148,7 @@ public class Main {
         System.out.println("школьницы-олимпиадницы:");
         for (SchoolChild pupil : pupils) {
             if (girl.equals(pupil.gender) && pupil.checkOlympiad())
-                System.out.println(pupil.toString());
+                System.out.println(pupil);
         }
     }
 

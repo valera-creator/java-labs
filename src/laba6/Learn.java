@@ -2,7 +2,7 @@ package laba6;
 
 import java.util.Objects;
 
-public abstract class Learn {
+public abstract class Learn implements Comparable<Learn> {
     protected String name;
     protected String lastname;
     protected String gender;
@@ -22,13 +22,20 @@ public abstract class Learn {
     }
 
     public String toString() {
-        return "имя: " + this.name + ", фамилия:" + this.lastname + ", пол: " + gender + ", возраст: " + age;
+        return "имя: " + this.name + ", фамилия: " + this.lastname + ", пол: " + this.gender + ", возраст: " +
+                this.age + ", средний балл: " + String.format("%.2f", this.getAvgScore());
     }
 
+    // сравнение по фамилиям
+    public int compareTo(Learn other) {
+        return this.lastname.compareTo(other.lastname);
+    }
 
     public abstract boolean checkScholarship();
 
     public abstract String getAllInfo();
+
+    public abstract double getAvgScore();
 
     public String getName() {
         return this.name;
