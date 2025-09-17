@@ -1,5 +1,6 @@
 package laba5;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public abstract class Learn {
@@ -53,5 +54,14 @@ public abstract class Learn {
             throw new IllegalArgumentException("\nОшибка: возраст" + age + " некорректный");
         else
             this.age = age;
+    }
+
+    public static void checkAllScholarship(ArrayList<Learn> learns) {
+        System.out.println("\nшкольники и студенты, которые должны получать специальную стипендию:");
+        for (Learn learn : learns) {
+            if (learn.checkScholarship())
+                System.out.println(learn.getAllInfo());
+        }
+
     }
 }

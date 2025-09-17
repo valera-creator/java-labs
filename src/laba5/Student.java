@@ -1,5 +1,6 @@
 package laba5;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Student extends Learn {
@@ -91,5 +92,13 @@ public class Student extends Learn {
     public void setTermPapers(List<Integer> marks) {
         checkCorrectMarks(marks);
         this.termPapers = marks;
+    }
+
+    public static void checkMarkStudents(ArrayList<Student> students) {
+        System.out.println("\nстуденты с оценками за курсовые:");
+        for (Student student : students) {
+            if (!student.checkEmptyMarks())
+                System.out.println(student.getAllInfo());
+        }
     }
 }

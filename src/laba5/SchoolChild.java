@@ -1,5 +1,6 @@
 package laba5;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
@@ -110,5 +111,13 @@ public class SchoolChild extends Learn {
                 throw new IllegalArgumentException("оценки должны быть в диапазоне от 2 до 5, нашлось: " + val);
         }
         this.marks = marks;
+    }
+
+    public static void checkGirls(ArrayList<SchoolChild> pupils, String girl) {
+        System.out.println("школьницы-олимпиадницы:");
+        for (SchoolChild pupil : pupils) {
+            if (girl.equals(pupil.gender) && pupil.checkOlympiad())
+                System.out.println(pupil);
+        }
     }
 }

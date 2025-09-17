@@ -43,9 +43,9 @@ public class Main {
         ArrayList<Learn> learns = new ArrayList<>(List.of(studentValera, studentAlina, studentRayana, studentBear,
                 schoolSahar, schoolAnna, schoolMilena));
 
-        checkGirls(pupils, girl);
-        checkMarkStudents(students);
-        checkAllScholarship(learns);
+        SchoolChild.checkGirls(pupils, girl);
+        Student.checkMarkStudents(students);
+        Learn.checkAllScholarship(learns);
     }
 
     public static Student addStudent(String name, String gender, int age, List<Integer> session,
@@ -70,30 +70,4 @@ public class Main {
         return null;
 
     }
-
-    public static void checkAllScholarship(ArrayList<Learn> learns) {
-        System.out.println("\nшкольники и студенты, которые должны получать специальную стипендию:");
-        for (Learn learn : learns) {
-            if (learn.checkScholarship())
-                System.out.println(learn.getAllInfo());
-        }
-
-    }
-
-    public static void checkMarkStudents(ArrayList<Student> students) {
-        System.out.println("\nстуденты с оценками за курсовые:");
-        for (Student student : students) {
-            if (!student.checkEmptyMarks())
-                System.out.println(student.getAllInfo());
-        }
-    }
-
-    public static void checkGirls(ArrayList<SchoolChild> pupils, String girl) {
-        System.out.println("школьницы-олимпиадницы:");
-        for (SchoolChild pupil : pupils) {
-            if (girl.equals(pupil.gender) && pupil.checkOlympiad())
-                System.out.println(pupil);
-        }
-    }
-
 }
