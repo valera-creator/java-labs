@@ -43,15 +43,15 @@ public class Main {
                 schoolSahar, schoolAnna, schoolMilena));
 
 
-        checkGirls(pupils, girl);
-        checkMarkStudents(students);
-        checkAllScholarship(learns);
+        SchoolChild.checkGirls(pupils, girl);
+        Student.checkMarkStudents(students);
+        Learn.checkAllScholarship(learns);
 
-        bestSchool(pupils);
-        bestStudent(students);
+        SchoolChild.bestSchool(pupils);
+        Student.bestStudent(students);
 
-        sortedStudents(students);
-        sortedSchoolChildren(pupils);
+        Student.sortedStudents(students);
+        SchoolChild.sortedSchoolChildren(pupils);
     }
 
     public static Student addStudent(String name, String lastname, String gender, int age, List<Integer> session,
@@ -76,94 +76,5 @@ public class Main {
         }
         return null;
 
-    }
-
-    public static void bestSchool(ArrayList<SchoolChild> pupils) {
-        double maxMark = -1;
-        if (pupils.isEmpty()) {
-            System.out.println("\nнет школьников");
-            return;
-        }
-
-        pupils.sort(SchoolChild.BY_MARK.reversed());
-        System.out.println("\nbest из школы: ");
-        for (SchoolChild schoolChild : pupils) {
-            if (maxMark == -1)
-                maxMark = schoolChild.getAvgScore();
-            else if (maxMark > schoolChild.getAvgScore()) {
-                return;
-            }
-            System.out.println(schoolChild);
-        }
-    }
-
-    public static void sortedStudents(ArrayList<Student> students) {
-        if (students.isEmpty()) {
-            System.out.println("\nнет студентов");
-            return;
-        }
-        students.sort(Student.BY_MARK.reversed());
-        System.out.println("\nстуденты, отсортированные по рейтингу успеваемости");
-        for (Student student : students)
-            System.out.println(student);
-
-    }
-
-    public static void sortedSchoolChildren(ArrayList<SchoolChild> pupils) {
-        if (pupils.isEmpty()) {
-            System.out.println("\nнет школьников");
-            return;
-        }
-        pupils.sort(SchoolChild.BY_MARK_NUM_SCHOOL);
-        System.out.println("\nшкольники, отсортированные по успеваемости и номеру школы");
-        for (SchoolChild schoolChild : pupils)
-            System.out.println(schoolChild.getAllInfo());
-
-    }
-
-    public static void bestStudent(ArrayList<Student> students) {
-        if (students.isEmpty()) {
-            System.out.println("\nнет студентов");
-            return;
-        }
-        double maxMark = -1;
-        students.sort(Student.BY_MARK.reversed());
-        System.out.println("\nbest студенты: ");
-        for (Student student : students) {
-            if (maxMark == -1)
-                maxMark = student.getAvgScore();
-            else if (maxMark > student.getAvgScore()) {
-                return;
-            }
-            System.out.println(student);
-        }
-    }
-
-    public static void checkAllScholarship(ArrayList<Learn> learns) {
-        ArrayList<Learn> listScholarShip = new ArrayList<>();
-        System.out.println("\nшкольники и студенты, которые должны получать специальную стипендию:");
-        for (Learn learn : learns) {
-            if (learn.checkScholarship())
-                listScholarShip.add(learn);
-        }
-        listScholarShip.sort(Learn.BY_LASTNAME);
-        for (Learn learn : listScholarShip)
-            System.out.println(learn);
-    }
-
-    public static void checkMarkStudents(ArrayList<Student> students) {
-        System.out.println("\nстуденты с оценками за курсовые:");
-        for (Student student : students) {
-            if (!student.checkEmptyMarks())
-                System.out.println(student.getAllInfo());
-        }
-    }
-
-    public static void checkGirls(ArrayList<SchoolChild> pupils, String girl) {
-        System.out.println("школьницы-олимпиадницы:");
-        for (SchoolChild pupil : pupils) {
-            if (girl.equals(pupil.gender) && pupil.checkOlympiad())
-                System.out.println(pupil);
-        }
     }
 }

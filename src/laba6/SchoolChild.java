@@ -1,5 +1,6 @@
 package laba6;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
@@ -145,5 +146,44 @@ public class SchoolChild extends Learn {
                 throw new IllegalArgumentException("оценки должны быть в диапазоне от 2 до 5, нашлось: " + val);
         }
         this.marks = marks;
+    }
+
+    public static void checkGirls(ArrayList<SchoolChild> pupils, String girl) {
+        System.out.println("школьницы-олимпиадницы:");
+        for (SchoolChild pupil : pupils) {
+            if (girl.equals(pupil.gender) && pupil.checkOlympiad())
+                System.out.println(pupil);
+        }
+    }
+
+    public static void bestSchool(ArrayList<SchoolChild> pupils) {
+        double maxMark = -1;
+        if (pupils.isEmpty()) {
+            System.out.println("\nнет школьников");
+            return;
+        }
+
+        pupils.sort(SchoolChild.BY_MARK.reversed());
+        System.out.println("\nbest из школы: ");
+        for (SchoolChild schoolChild : pupils) {
+            if (maxMark == -1)
+                maxMark = schoolChild.getAvgScore();
+            else if (maxMark > schoolChild.getAvgScore()) {
+                return;
+            }
+            System.out.println(schoolChild);
+        }
+    }
+
+    public static void sortedSchoolChildren(ArrayList<SchoolChild> pupils) {
+        if (pupils.isEmpty()) {
+            System.out.println("\nнет школьников");
+            return;
+        }
+        pupils.sort(SchoolChild.BY_MARK_NUM_SCHOOL);
+        System.out.println("\nшкольники, отсортированные по успеваемости и номеру школы");
+        for (SchoolChild schoolChild : pupils)
+            System.out.println(schoolChild.getAllInfo());
+
     }
 }

@@ -1,5 +1,6 @@
 package laba6;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -102,5 +103,17 @@ public abstract class Learn {
             throw new IllegalArgumentException("возраст некорректный");
         else
             this.age = age;
+    }
+
+    public static void checkAllScholarship(ArrayList<Learn> learns) {
+        ArrayList<Learn> listScholarShip = new ArrayList<>();
+        System.out.println("\nшкольники и студенты, которые должны получать специальную стипендию:");
+        for (Learn learn : learns) {
+            if (learn.checkScholarship())
+                listScholarShip.add(learn);
+        }
+        listScholarShip.sort(Learn.BY_LASTNAME);
+        for (Learn learn : listScholarShip)
+            System.out.println(learn);
     }
 }

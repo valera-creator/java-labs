@@ -1,5 +1,6 @@
 package laba6;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Student extends Learn {
@@ -106,5 +107,43 @@ public class Student extends Learn {
     public void setTermPapers(List<Integer> marks) {
         checkCorrectMarks(marks);
         this.termPapers = marks;
+    }
+
+    public static void checkMarkStudents(ArrayList<Student> students) {
+        System.out.println("\nстуденты с оценками за курсовые:");
+        for (Student student : students) {
+            if (!student.checkEmptyMarks())
+                System.out.println(student.getAllInfo());
+        }
+    }
+
+    public static void bestStudent(ArrayList<Student> students) {
+        if (students.isEmpty()) {
+            System.out.println("\nнет студентов");
+            return;
+        }
+        double maxMark = -1;
+        students.sort(Student.BY_MARK.reversed());
+        System.out.println("\nbest студенты: ");
+        for (Student student : students) {
+            if (maxMark == -1)
+                maxMark = student.getAvgScore();
+            else if (maxMark > student.getAvgScore()) {
+                return;
+            }
+            System.out.println(student);
+        }
+    }
+
+    public static void sortedStudents(ArrayList<Student> students) {
+        if (students.isEmpty()) {
+            System.out.println("\nнет студентов");
+            return;
+        }
+        students.sort(Student.BY_MARK.reversed());
+        System.out.println("\nстуденты, отсортированные по рейтингу успеваемости");
+        for (Student student : students)
+            System.out.println(student);
+
     }
 }
