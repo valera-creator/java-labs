@@ -66,7 +66,7 @@ public class SearchWord {
         String[] phrases = text.split("[!?.]+");
         for (String s : phrases) {
             if (checkSubstring(s, word))
-                System.out.println(s.strip());
+                System.out.println(s.replaceAll("\\s+", " ").strip());
         }
     }
 
