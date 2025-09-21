@@ -37,10 +37,9 @@ public class Telegram {
         }
 
         if (cntElems == 0) {
-            System.out.println("стоимость телеграммы: 0");
+            System.out.println("Cтоимость телеграммы: 0");
             return s;
         }
-
 
         newWords = new String[cntElems];
         for (String elem : splitS) {
