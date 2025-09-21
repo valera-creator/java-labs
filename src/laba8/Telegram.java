@@ -27,7 +27,7 @@ public class Telegram {
 
     public static String makeTransformation(String s, String delimiter) {
         String[] newWords;
-        int cntElems = 0, curIndex = 0;
+        int cntElems = 0, curIndex = 0, costWord = 10;
 
         String[] splitS = s.split(", ");
 
@@ -36,8 +36,11 @@ public class Telegram {
                 cntElems++;
         }
 
-        if (cntElems == 0)
+        if (cntElems == 0) {
+            System.out.println("стоимость телеграммы: 0");
             return s;
+        }
+
 
         newWords = new String[cntElems];
         for (String elem : splitS) {
@@ -46,12 +49,14 @@ public class Telegram {
                 curIndex++;
             }
         }
+
+        // словом считается именно разделение пробела и запятой
+        System.out.println("Стоимость телеграммы: " + (cntElems + newWords.length - 1) * costWord);
         return String.join(delimiter, newWords);
     }
 
     public static void replaceZpt(String text) {
         char s;
-        int costWord = 10, costTelegram = 0;
 
         if (!text.isEmpty())
             s = text.charAt(0);
@@ -63,14 +68,9 @@ public class Telegram {
         System.out.println("Полученный текст: ");
         System.out.println(text + "\n");
 
-        System.out.println("Преобразованный текст: ");
         text = makeTransformation(text, delimiter);
+        System.out.println("Преобразованный текст: ");
         System.out.println(text);
-
-        if (!text.isEmpty())
-            costTelegram = text.split("\\s+").length * costWord;
-
-        System.out.println("Стоимость телеграммы: " + costTelegram);
     }
 
     public static String getText(Scanner scanner) {
