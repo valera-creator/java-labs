@@ -14,6 +14,23 @@ public class Words {
         System.out.println("Полученные слова: " + String.join(", ", text));
         checkEndEs(text);
         sortLen(text);
+        checkSum(text);
+    }
+
+    public static boolean isNum(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static void checkSum(String[] text) {
+        String[] nums = Arrays.stream(text).filter(Words::isNum).toArray(String[]::new);
+        int[] intNums = Arrays.stream(nums).mapToInt(Integer::parseInt).toArray();
+        System.out.println("Числа в тексте: " + String.join(", ", nums));
+        System.out.println("Сумма чисел: " + Arrays.stream(intNums).sum());
     }
 
     public static void sortLen(String[] text) {
