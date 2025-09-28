@@ -1,0 +1,7 @@
+They used 233 features including 227
+ stylometric features and six novel social network-specific features
+ like character-based ones numbers of alphabets, uppercase
+ characters, special characters, word-based ones the total number of
+ words, average word length, the number of words with 1 char,
+ syntactic ones numbers of punctuation marks and functional
+ words, the total number of sentences and many other
