@@ -34,7 +34,7 @@ public class Words {
     }
 
     public static void sortLen(String[] text) {
-        // примитив, поэтому надо в toArray ту фигню писать
+        //ссылочный тип, поэтому надо в toArray ту фигню писать
         String[] sortWords = Arrays.stream(text).sorted(Comparator.comparing(String::length)).toArray(String[]::new);
         System.out.println("Слова, отсортированные по длине по возрастанию: " + String.join(", ", sortWords));
     }
