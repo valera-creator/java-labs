@@ -59,4 +59,33 @@ public class Stat {
     public static List<Stat> getStats() {
         return stats;
     }
+
+    public static void printCities() {
+        if (stats.isEmpty()) {
+            System.out.println("Нет информации ни об одном штате");
+            return;
+        }
+
+        for (Stat stat : stats) {
+            System.out.println("Штат " + stat.getNameState());
+            List<City> cities = stat.getCities();
+            if (cities.isEmpty())
+                System.out.println("Нет информации о городах штата " + stat.getNameState());
+            for (City city : cities)
+                System.out.println(city);
+            System.out.println();
+        }
+    }
+
+    public static boolean checkCityInStates(String cityName, String stateName) {
+        Stat stat = getStatByName(stateName);
+        if (stat == null)
+            return false;
+
+        for (City city : stat.getCities()) {
+            if (Objects.equals(city.getNameCity(), cityName))
+                return true;
+        }
+        return false;
+    }
 }

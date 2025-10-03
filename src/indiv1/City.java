@@ -6,16 +6,15 @@ public class City {
     private String nameState = "";
     private int cntPeoples2011 = 0;
     private int cntPeoples2017 = 0;
-    private double cntAborigine = 0;
+    private double percentAborigine = 0;
 
 
-    public City(String nameCity, String nameState, String cntPeoples2011, String cntPeoples2017, String cntAborigine) {
+    public City(String nameCity, String nameState, String cntPeoples2011, String cntPeoples2017, String percentAborigine) {
         this.setNameCity(nameCity);
         this.setNameState(nameState);
         this.setCntPeoples2011(cntPeoples2011);
         this.setCntPeoples2017(cntPeoples2017);
-        this.setCntAborigine(cntAborigine);
-
+        this.setPercentAborigine(percentAborigine);
     }
 
     public void setNameCity(String nameCity) {
@@ -56,23 +55,19 @@ public class City {
         this.cntPeoples2017 = val;
     }
 
-    public void setCntAborigine(String cntAborigine) {
-        cntAborigine = cntAborigine.replaceAll("%", "");
+    public void setPercentAborigine(String percentAborigine) {
+        percentAborigine = percentAborigine.replaceAll("%", "");
         double val;
         try {
-            val = Double.parseDouble(cntAborigine);
+            val = Double.parseDouble(percentAborigine);
         } catch (Exception e) {
-            throw new IllegalArgumentException("\"" + cntAborigine + "\"  - не число!");
+            throw new IllegalArgumentException("\"" + percentAborigine + "\"  - не число!");
         }
         if (val < 0) {
             throw new IllegalArgumentException("Количество аборигенов в городе " +
                     this.nameCity + " не может быть отрицательным!");
         }
-        this.cntAborigine = val;
-    }
-
-    public double getCntAborigine() {
-        return cntAborigine;
+        this.percentAborigine = val;
     }
 
     public String getNameCity() {
@@ -91,7 +86,7 @@ public class City {
         return nameState;
     }
 
-    public double getPercentPopulation() {
+    private double getPercentPopulation() {
         double diff;
         if (this.getCntPeoples2011() == 0) {
             if (this.getCntPeoples2017() == 0)
@@ -113,11 +108,27 @@ public class City {
         return null;
     }
 
+    private static long getCntPeoplesCountry2017() {
+        long cnt = 0;
+        for (Stat stat : Stat.getStats()) {
+            for (City city : stat.getCities())
+                cnt += city.cntPeoples2017;
+        }
+        return cnt;
+    }
+
+    private int calculateNumAborigine2017() {
+        double percentAborigineInCountry = 2.5;
+        double peoples = getCntPeoplesCountry2017() * percentAborigineInCountry / 100;
+        return (int) (peoples * (this.percentAborigine / 100.0));
+    }
+
     @Override
     public String toString() {
-        return "Город: " + this.nameCity + ", Штат: " + this.nameState + ", Численность населения в 2011: " +
+        return "Город: " + this.nameCity + ", Численность населения в 2011: " +
                 this.cntPeoples2011 + ", Численность населения в 2017: " + this.cntPeoples2017 + ", Доля аборигенов: "
-                + this.cntAborigine + "%" + ", Процент прироста с 2011 по 2017 год: " +
-                this.getPercentPopulation() + "%";
+                + this.percentAborigine + "%" + ", Процент прироста с 2011 по 2017 год: " +
+                this.getPercentPopulation() + ", Примерное число аборигенов в городе относительно всей страны в 2017 " +
+                "году: " + this.calculateNumAborigine2017();
     }
 }
