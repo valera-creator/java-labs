@@ -88,4 +88,12 @@ public class Stat {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        List<String> names = new ArrayList<>();
+        for (City city : this.cities)
+            names.add(city.getNameCity());
+        return "Штат " + this.nameState + "\nГорода: " + String.join(", ", names) + "\n";
+    }
 }

@@ -128,7 +128,7 @@ public class City {
         return "Город: " + this.nameCity + ", Численность населения в 2011: " +
                 this.cntPeoples2011 + ", Численность населения в 2017: " + this.cntPeoples2017 + ", Доля аборигенов: "
                 + this.percentAborigine + "%" + ", Процент прироста с 2011 по 2017 год: " +
-                this.getPercentPopulation() + ", Примерное число аборигенов в городе относительно всей страны в 2017 " +
+                this.getPercentPopulation() + "%, Примерное число аборигенов в городе в 2017 " +
                 "году: " + this.calculateNumAborigine2017();
     }
 }
