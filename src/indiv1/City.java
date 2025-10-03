@@ -64,9 +64,12 @@ public class City {
             throw new IllegalArgumentException("\"" + percentAborigine + "\"  - не число!");
         }
         if (val < 0) {
-            throw new IllegalArgumentException("Количество аборигенов в городе " +
+            throw new IllegalArgumentException("Процент аборигенов в городе " +
                     this.nameCity + " не может быть отрицательным!");
         }
+        if (val > 100)
+            throw new IllegalArgumentException("Процент аборигенов в городе " +
+                    this.nameCity + " не может быть больше 100!");
         this.percentAborigine = val;
     }
 
