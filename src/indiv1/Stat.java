@@ -49,7 +49,7 @@ public class Stat {
     }
 
     public String getNameState() {
-        return nameState;
+        return this.nameState;
     }
 
     public List<City> getCities() {

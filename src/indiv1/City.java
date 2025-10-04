@@ -74,19 +74,19 @@ public class City {
     }
 
     public String getNameCity() {
-        return nameCity;
+        return this.nameCity;
     }
 
     public int getCntPeoples2011() {
-        return cntPeoples2011;
+        return this.cntPeoples2011;
     }
 
     public int getCntPeoples2017() {
-        return cntPeoples2017;
+        return this.cntPeoples2017;
     }
 
     public String getNameState() {
-        return nameState;
+        return this.nameState;
     }
 
     private double getPercentPopulation() {
