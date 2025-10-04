@@ -1,9 +1,6 @@
 package indiv2;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Anime {
     private int id;
@@ -45,6 +42,14 @@ public class Anime {
         this.id = val;
     }
 
+    private double getRating() {
+        return rating;
+    }
+
+    private int getCntParticipants() {
+        return cntParticipants;
+    }
+
     public void setName(String name) {
         if (name.isEmpty())
             throw new IllegalArgumentException("Имя аниме не может быть пустым!");
@@ -56,6 +61,7 @@ public class Anime {
         if (genres.isEmpty())
             throw new IllegalArgumentException("У аниме " + this.name + " не указаны жанры");
         listGenres = Arrays.stream(genres.split(",")).toList();
+        listGenres = listGenres.stream().map(String::strip).toList();
         this.genres = listGenres;
     }
 
@@ -130,5 +136,51 @@ public class Anime {
     public static void printAllAnime(List<Anime> animeList) {
         for (Anime anime : animeList)
             System.out.println(anime);
+    }
+
+    private static HashSet<String> getAllGenres(List<Anime> animeList) {
+        HashSet<String> genres = new HashSet<>();
+        for (Anime anime : animeList)
+            genres.addAll(anime.genres);
+        return genres;
+    }
+
+    public static void searchInfoGenres(List<Anime> animeList) {
+        HashSet<String> genres = getAllGenres(animeList);
+        if (genres.isEmpty()) {
+            System.out.println("Информация о жанрах отсутствует");
+            return;
+        }
+
+        System.out.println(" ".repeat(40) + "Информация о всех жанрах");
+        for (String genre : genres) {
+            List<Anime> animeGenresList = animeList.stream().filter(anime -> anime.genres.contains(genre)).
+                    toList();
+            int cntAnime = animeGenresList.size();
+
+            // удаляю те аниме, у которых нет данных о рейтинге и о участниках сообщества
+            animeGenresList = animeGenresList.stream().filter(anime -> anime.rating != -1 &&
+                    anime.cntParticipants != -1).toList();
+
+            if (animeGenresList.isEmpty()) {
+                System.out.println("Нет данных про аниме, у которого присутствовали известные параметры");
+                continue;
+            }
+
+            Optional<Anime> data = animeGenresList.stream().max(Comparator.comparing(Anime::getRating));
+            double maxRating = data.map(anime -> anime.rating).orElse(0.0);
+
+            data = animeGenresList.stream().min(Comparator.comparing(Anime::getRating));
+            double minRating = data.map(anime -> anime.rating).orElse(0.0);
+
+            double averageRating = animeGenresList.stream().mapToDouble(Anime::getRating).average().orElse(0.0);
+            int cntPeoples = (int) animeGenresList.stream().mapToInt(Anime::getCntParticipants).average().
+                    orElse(0);
+
+            System.out.println("-".repeat(105));
+            System.out.printf("Жанр: %-17s | Кол-во: %3d | Ср. рейт: %.2f | Макс: %.2f | Мин: %.2f | " +
+                    "Ср. участники: %8d%n", genre, cntAnime, averageRating, maxRating, minRating, cntPeoples);
+            System.out.println("-".repeat(105));
+        }
     }
 }
