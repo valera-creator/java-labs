@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class StatesInformation {
-    List<Stat> stats = new ArrayList<>();
+    private final List<Stat> stats = new ArrayList<>();
 
     public void addStat(Stat stat) {
         stats.add(stat);
@@ -76,11 +76,11 @@ public class StatesInformation {
 
     public void calculateAborigine() {
         double percentAborigineInCountry = 2.5;
-        double peoples;
+        double percentAborigineCountry;
         for (Stat stat : this.stats) {
             for (City city : stat.getCities()) {
-                peoples = this.getCntPeoplesCountry2017() * percentAborigineInCountry / 100;
-                city.setAboriginalCount((int) (peoples * (city.getPercentAborigine() / 100.0)));
+                percentAborigineCountry = this.getCntPeoplesCountry2017() * percentAborigineInCountry / 100;
+                city.setAboriginalCount((int) (percentAborigineCountry * (city.getPercentAborigine() / 100.0)));
             }
         }
     }

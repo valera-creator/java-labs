@@ -22,7 +22,6 @@ public class Main {
         // writeJson(data, pathJsonFile);
     }
 
-
     public static void receiveInfo(String path, List<Anime> animeList) {
         BufferedReader br;
         String line;
