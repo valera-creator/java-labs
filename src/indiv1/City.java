@@ -7,9 +7,11 @@ public class City {
     private int cntPeoples2011 = 0;
     private int cntPeoples2017 = 0;
     private double percentAborigine = 0;
+    private int aboriginalCount = 0;
 
 
-    public City(String nameCity, String nameState, String cntPeoples2011, String cntPeoples2017, String percentAborigine) {
+    public City(String nameCity, String nameState, String cntPeoples2011, String cntPeoples2017,
+                String percentAborigine) {
         this.setNameCity(nameCity);
         this.setNameState(nameState);
         this.setCntPeoples2011(cntPeoples2011);
@@ -73,6 +75,12 @@ public class City {
         this.percentAborigine = val;
     }
 
+    public void setAboriginalCount(int aboriginalCount) {
+        if (aboriginalCount < 0)
+            throw new IllegalArgumentException("Аборигенов в городе " + this.nameCity + " не может быть меньше 0");
+        this.aboriginalCount = aboriginalCount;
+    }
+
     public String getNameCity() {
         return this.nameCity;
     }
@@ -87,6 +95,14 @@ public class City {
 
     public String getNameState() {
         return this.nameState;
+    }
+
+    public double getPercentAborigine() {
+        return this.percentAborigine;
+    }
+
+    public int getAboriginalCount() {
+        return aboriginalCount;
     }
 
     private double getPercentPopulation() {
@@ -111,27 +127,11 @@ public class City {
         return null;
     }
 
-    private static long getCntPeoplesCountry2017() {
-        long cnt = 0;
-        for (Stat stat : Stat.getStats()) {
-            for (City city : stat.getCities())
-                cnt += city.cntPeoples2017;
-        }
-        return cnt;
-    }
-
-    private int calculateNumAborigine2017() {
-        double percentAborigineInCountry = 2.5;
-        double peoples = getCntPeoplesCountry2017() * percentAborigineInCountry / 100;
-        return (int) (peoples * (this.percentAborigine / 100.0));
-    }
-
     @Override
     public String toString() {
         return "Город: " + this.nameCity + ", Численность населения в 2011: " +
                 this.cntPeoples2011 + ", Численность населения в 2017: " + this.cntPeoples2017 + ", Доля аборигенов: "
                 + this.percentAborigine + "%" + ", Процент прироста с 2011 по 2017 год: " +
-                this.getPercentPopulation() + "%, Примерное число аборигенов в городе в 2017 " +
-                "году: " + this.calculateNumAborigine2017();
+                this.getPercentPopulation() + "%, Аборигенов: ~" + this.aboriginalCount;
     }
 }

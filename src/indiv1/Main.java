@@ -7,28 +7,14 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         String path = "src\\indiv1\\data_AUS_state.csv";
-        ParsingText(path);
-        Stat.printCities();
+        StatesInformation statesInformation = new StatesInformation();
+        ParsingText(path, statesInformation);
+
+        statesInformation.calculateAborigine();
+        statesInformation.printCities();
     }
 
-    public static void addStatsAndCities(String[] parts) {
-        City city = City.createCity(parts);
-        if (Stat.checkCityInStates(city.getNameCity(), city.getNameState()))
-            throw new IllegalArgumentException("Город " + city.getNameCity() + " Был повторно передан в штат " +
-                    city.getNameState());
-
-        if (!Stat.checkStatInList(city.getNameState())) {
-            Stat stat = new Stat(city.getNameState());
-            stat.addCity(city);
-            Stat.addStat(stat);
-        } else {
-            Stat stat = Stat.getStatByName(city.getNameState());
-            assert stat != null;
-            stat.addCity(city);
-        }
-    }
-
-    private static void ParsingText(String path) {
+    private static void ParsingText(String path, StatesInformation statesInformation) {
         BufferedReader br;
         String line;
 
@@ -52,7 +38,7 @@ public class Main {
                 parts[2] = parts[2].replaceAll("\"", "").replaceAll(",", "");
                 parts[3] = parts[3].replaceAll("\"", "").replaceAll(",", "");
 
-                addStatsAndCities(parts);
+                StatesInformation.addStatsAndCities(parts, statesInformation);
             }
         } catch (IOException | IllegalArgumentException e) {
             System.err.println(e.getMessage());
