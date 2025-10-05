@@ -145,7 +145,7 @@ public class Anime {
         return genres;
     }
 
-    public static void makeTable(int cntAnime, List<Anime> list, String genre) {
+    private static void makeTable(int cntAnime, List<Anime> list, String genre) {
         Optional<Anime> data = list.stream().max(Comparator.comparing(Anime::getRating));
         double maxRating = data.map(anime -> anime.rating).orElse(0.0);
 
@@ -162,7 +162,7 @@ public class Anime {
         System.out.println("-".repeat(105));
     }
 
-    public static void searchGenresAnime(String error1, String text1, String error2, List<Anime> search) {
+    private static void searchGenresAnime(String error1, String text1, String error2, List<Anime> search) {
         HashSet<String> genres = getAllGenres(search);
         if (genres.isEmpty()) {
             System.out.println(error1);
@@ -187,7 +187,7 @@ public class Anime {
         System.out.println("\n");
     }
 
-    public static void searchBest20(String varietyAnime, List<Anime> search) {
+    private static void searchBest20(String varietyAnime, List<Anime> search) {
         List<Anime> filterSearch = search.stream().filter(anime -> anime.rating != -1).toList();
 
         if (filterSearch.isEmpty()) {
