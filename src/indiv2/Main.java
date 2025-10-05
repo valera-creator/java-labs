@@ -12,11 +12,24 @@ public class Main {
         String pathJsonFile = "src\\indiv2\\output.json";
 
         WorkWithFiles.receiveInfo(pathTxtFile, animeList);
-
         Anime.searchInfoGenres(animeList);
 
+        chooseVar(scanner, animeList);
         scanner.close();
+    }
 
-
+    public static void chooseVar(Scanner scanner, List<Anime> animeList) {
+        while (true) {
+            System.out.print("Выбери, о чем хочешь получить информацию, введи \"фильм\" или \"сериал\": ");
+            String s = scanner.nextLine().toLowerCase();
+            if (s.equals("фильм")) {
+                Anime.searchFilms(animeList);
+                return;
+            } else if (s.equals("сериал")) {
+                Anime.searchSerials(animeList);
+                return;
+            } else
+                System.out.println("и чё означает \"" + s + "\"? Вводи по новой давай!");
+        }
     }
 }

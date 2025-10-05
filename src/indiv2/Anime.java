@@ -145,42 +145,78 @@ public class Anime {
         return genres;
     }
 
-    public static void searchInfoGenres(List<Anime> animeList) {
-        HashSet<String> genres = getAllGenres(animeList);
+    public static void makeTable(int cntAnime, List<Anime> list, String genre) {
+        Optional<Anime> data = list.stream().max(Comparator.comparing(Anime::getRating));
+        double maxRating = data.map(anime -> anime.rating).orElse(0.0);
+
+        data = list.stream().min(Comparator.comparing(Anime::getRating));
+        double minRating = data.map(anime -> anime.rating).orElse(0.0);
+
+        double averageRating = list.stream().mapToDouble(Anime::getRating).average().orElse(0.0);
+        int cntPeoples = (int) list.stream().mapToInt(Anime::getCntParticipants).average().
+                orElse(0);
+
+        System.out.println("-".repeat(105));
+        System.out.printf("Жанр: %-17s | Кол-во: %3d | Ср. рейт: %.2f | Макс: %.2f | Мин: %.2f | " +
+                "Ср. участники: %8d%n", genre, cntAnime, averageRating, maxRating, minRating, cntPeoples);
+        System.out.println("-".repeat(105));
+    }
+
+    public static void searchGenresAnime(String error1, String text1, String error2, List<Anime> search) {
+        HashSet<String> genres = getAllGenres(search);
         if (genres.isEmpty()) {
-            System.out.println("Информация о жанрах отсутствует");
+            System.out.println(error1);
             return;
         }
 
-        System.out.println(" ".repeat(40) + "Информация о всех жанрах");
+        System.out.println(" ".repeat(40) + text1);
         for (String genre : genres) {
-            List<Anime> animeGenresList = animeList.stream().filter(anime -> anime.genres.contains(genre)).
+            List<Anime> animeGenresList = search.stream().filter(anime -> anime.genres.contains(genre)).
                     toList();
             int cntAnime = animeGenresList.size();
 
-            // удаляю те аниме, у которых нет данных о рейтинге и о участниках сообщества
             animeGenresList = animeGenresList.stream().filter(anime -> anime.rating != -1 &&
                     anime.cntParticipants != -1).toList();
 
             if (animeGenresList.isEmpty()) {
-                System.out.println("Нет данных про аниме, у которого присутствовали известные параметры");
+                System.out.println(error2);
                 continue;
             }
-
-            Optional<Anime> data = animeGenresList.stream().max(Comparator.comparing(Anime::getRating));
-            double maxRating = data.map(anime -> anime.rating).orElse(0.0);
-
-            data = animeGenresList.stream().min(Comparator.comparing(Anime::getRating));
-            double minRating = data.map(anime -> anime.rating).orElse(0.0);
-
-            double averageRating = animeGenresList.stream().mapToDouble(Anime::getRating).average().orElse(0.0);
-            int cntPeoples = (int) animeGenresList.stream().mapToInt(Anime::getCntParticipants).average().
-                    orElse(0);
-
-            System.out.println("-".repeat(105));
-            System.out.printf("Жанр: %-17s | Кол-во: %3d | Ср. рейт: %.2f | Макс: %.2f | Мин: %.2f | " +
-                    "Ср. участники: %8d%n", genre, cntAnime, averageRating, maxRating, minRating, cntPeoples);
-            System.out.println("-".repeat(105));
+            makeTable(cntAnime, animeGenresList, genre);
         }
+        System.out.println("\n");
+    }
+
+    public static void searchBest20(String varietyAnime, List<Anime> search) {
+        List<Anime> filterSearch = search.stream().filter(anime -> anime.rating != -1).toList();
+
+        if (filterSearch.isEmpty()) {
+            System.out.println("Нет аниме с известным рейтингом в " + varietyAnime);
+            return;
+        }
+
+        List<Anime> top20 = filterSearch.stream().sorted(Comparator.comparing(Anime::getRating).reversed()).limit(20).toList();
+        System.out.println("Информация о топ " + top20.size() + " лучших по рейтингу " + varietyAnime + ":");
+        for (int i = 0; i < top20.size(); i++)
+            System.out.println((i + 1) + ") " + top20.get(i));
+    }
+
+    public static void searchInfoGenres(List<Anime> animeList) {
+        System.out.println("Для предотвращения некорректности рассчетов таблица не будет содержать строки, в которых " +
+                "были не до конца известны данные");
+        searchGenresAnime("Информация о жанрах отсутствует", "\nИнформация о всех жанрах",
+                "Нет данных про аниме, у которого присутствовали известные параметры", animeList);
+    }
+
+    public static void searchSerials(List<Anime> animeList) {
+        List<Anime> serials = animeList.stream().filter(anime -> anime.cntSeries > 1).toList();
+        searchGenresAnime("Нет информации о сериалах", "\nИнформация о сериалах", "", serials);
+        searchBest20("сериалах", serials);
+    }
+
+    public static void searchFilms(List<Anime> animeList) {
+        List<Anime> films = animeList.stream().filter(anime -> anime.cntSeries == 1).toList();
+        searchGenresAnime("Нет информации о фильмах", "\nИнформация о фильмах", "", films);
+        searchBest20("фильмах", films);
     }
 }
