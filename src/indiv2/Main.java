@@ -13,8 +13,13 @@ public class Main {
         WorkWithFiles.receiveInfo(pathTxtFile, animeList);
         Anime.searchInfoGenres(animeList);
 
-        CorrectSearchData.chooseVar(scanner, animeList);
-        String[] params = CorrectSearchData.inputParamSearch(scanner, animeList);
+        CorrectSearchData.chooseFilmOrSerial(scanner, animeList);
+        String[] params = CorrectSearchData.inputParamSearch(scanner);
+        List<Anime> filterList = Anime.filterAnime(params, animeList);
+        Anime.printFilter(filterList);
+
+        List<Map<String, Object>> data = WorkWithFiles.convertToMapObj(filterList);
+        WorkWithFiles.writeJson(data, pathJsonFile);
 
         scanner.close();
     }

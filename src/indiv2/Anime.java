@@ -42,11 +42,31 @@ public class Anime {
         this.id = val;
     }
 
-    private double getRating() {
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public String getTypeAnime() {
+        return typeAnime;
+    }
+
+    public int getCntSeries() {
+        return cntSeries;
+    }
+
+    public double getRating() {
         return rating;
     }
 
-    private int getCntParticipants() {
+    public int getCntParticipants() {
         return cntParticipants;
     }
 
@@ -133,11 +153,6 @@ public class Anime {
                 "; количество пользователей сообщества: " + cntParticipants;
     }
 
-    public static void printAllAnime(List<Anime> animeList) {
-        for (Anime anime : animeList)
-            System.out.println(anime);
-    }
-
     private static HashSet<String> getAllGenres(List<Anime> animeList) {
         HashSet<String> genres = new HashSet<>();
         for (Anime anime : animeList)
@@ -218,5 +233,45 @@ public class Anime {
         List<Anime> films = animeList.stream().filter(anime -> anime.cntSeries == 1).toList();
         searchGenresAnime("Нет информации о фильмах", "\nИнформация о фильмах", "", films);
         searchBest20("фильмах", films);
+    }
+
+    public static void printFilter(List<Anime> filterList) {
+        if (filterList.isEmpty())
+            System.out.println("\nПо вашему запросу ничего не нашлось!");
+        else {
+            System.out.println("Полученные данные после фильтрации: ");
+            for (Anime anime : filterList)
+                System.out.println(anime);
+        }
+    }
+
+    public static List<Anime> filterAnime(String[] data, List<Anime> animeList) {
+        // проверка корректности данных не требуется, т.к. при вводе значений учтено все в методе inputParamSearch
+
+        List<Anime> filterList;
+
+        if (data[0].equalsIgnoreCase("любой"))
+            filterList = animeList;
+        else
+            filterList = animeList.stream().filter(anime -> anime.genres.contains(data[0])).toList();
+        if (!data[1].equalsIgnoreCase("любой"))
+            filterList = filterList.stream().filter(anime -> Objects.equals(anime.typeAnime, data[1])).toList();
+        if (!data[2].equalsIgnoreCase("любой")) {
+            int left = Integer.parseInt(data[2].split("\\s+")[0]);
+            int right = Integer.parseInt(data[2].split("\\s+")[1]);
+            filterList = filterList.stream().filter(anime -> anime.cntSeries >= left && anime.cntSeries <= right).toList();
+        }
+        if (!data[3].equalsIgnoreCase("любой")) {
+            double left = Double.parseDouble(data[3].split("\\s+")[0]);
+            double right = Double.parseDouble(data[3].split("\\s+")[1]);
+            filterList = filterList.stream().filter(anime -> anime.rating >= left && anime.rating <= right).toList();
+        }
+        if (!data[4].equalsIgnoreCase("любой")) {
+            int left = Integer.parseInt(data[4].split("\\s+")[0]);
+            int right = Integer.parseInt(data[4].split("\\s+")[1]);
+            filterList = filterList.stream().filter(anime -> anime.cntParticipants >= left && anime.cntParticipants <= right).toList();
+        }
+
+        return filterList;
     }
 }

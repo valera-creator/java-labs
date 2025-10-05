@@ -7,8 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class WorkWithFiles {
     public static void receiveInfo(String path, List<Anime> animeList) {
@@ -35,13 +34,26 @@ public class WorkWithFiles {
         }
     }
 
-    public static void writeJson(Map<String, Object> data, String jsonPath) {
+    public static List<Map<String, Object>> convertToMapObj(List<Anime> animeList) {
+        List<Map<String, Object>> data = new LinkedList<>();
+        for (Anime anime : animeList) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("Id", anime.getId());
+            map.put("Name", anime.getName());
+            map.put("Genres", anime.getGenres());
+            map.put("Type", anime.getTypeAnime());
+            map.put("Number of episodes", anime.getCntSeries());
+            map.put("Rating", anime.getRating());
+            map.put("Community subscribers", anime.getCntParticipants());
+            data.add(map);
+        }
+        return data;
+    }
+
+    public static void writeJson(List<Map<String, Object>> data, String jsonPath) {
         // создание объекта с отступами
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
         String json = gson.toJson(data);
-        System.out.println("Данные для записи в Json:");
-        System.out.println(json);
 
         // запись в файл
         try (FileWriter writer = new FileWriter(jsonPath)) {

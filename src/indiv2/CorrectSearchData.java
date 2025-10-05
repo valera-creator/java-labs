@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CorrectSearchData {
-    public static void chooseVar(Scanner scanner, List<Anime> animeList) {
+    public static void chooseFilmOrSerial(Scanner scanner, List<Anime> animeList) {
         while (true) {
             System.out.print("Выбери, о чем хочешь получить информацию, введи \"фильм\" или \"сериал\": ");
             String s = scanner.nextLine().toLowerCase();
@@ -22,7 +22,7 @@ public class CorrectSearchData {
     private static boolean checkCorrectInt(String str, int limit) {
         String[] strings = str.split("\\s+");
         if (strings.length != 2) {
-            System.err.println("Ошибка вводе рейтинга: не 2 значения");
+            System.err.println("Ошибка в воде рейтинга: не два значения");
             return false;
         }
         try {
@@ -48,7 +48,7 @@ public class CorrectSearchData {
     private static boolean checkCorrectRating(String rating) {
         String[] strings = rating.split("\\s+");
         if (strings.length != 2) {
-            System.err.println("Ошибка вводе рейтинга: не 2 значения");
+            System.err.println("Ошибка в вводе рейтинга: не два значения");
             return false;
         }
         try {
@@ -74,7 +74,7 @@ public class CorrectSearchData {
         }
     }
 
-    public static String[] inputParamSearch(Scanner scanner, List<Anime> animeList) {
+    public static String[] inputParamSearch(Scanner scanner) {
         String genre;
         String type;
         String cntSeries;
@@ -90,7 +90,6 @@ public class CorrectSearchData {
             else
                 System.err.println("Ошибка: жанр не может быть пустотой");
         }
-
         while (true) {
             System.out.print("Введите тип для поиска: ");
             type = scanner.nextLine();
@@ -100,25 +99,23 @@ public class CorrectSearchData {
                 System.err.println("Ошибка: тип не может быть пустотой");
         }
         while (true) {
-            System.out.print("Введите диапазон серий (2 числа через пробел) или слово \"любой\": ");
+            System.out.print("Введите диапазон серий (два числа через пробел) или слово \"любой\": ");
             cntSeries = scanner.nextLine();
             if (cntSeries.equalsIgnoreCase("любой"))
                 break;
             else if (checkCorrectInt(cntSeries, 0))
                 break;
-
         }
         while (true) {
-            System.out.print("Введите диапазон рейтинга от 0 до 10 (2 числа через пробел) или слово \"любой\": ");
+            System.out.print("Введите диапазон рейтинга от 0 до 10 (два числа через пробел) или слово \"любой\": ");
             rating = scanner.nextLine();
             if (rating.equalsIgnoreCase("любой"))
                 break;
             else if (checkCorrectRating(rating))
                 break;
         }
-
         while (true) {
-            System.out.print("Введите диапазон подписчиков сообщества (2 числа через пробел) или слово \"любой\": ");
+            System.out.print("Введите диапазон подписчиков сообщества (два числа через пробел) или слово \"любой\": ");
             cntPeoples = scanner.nextLine();
             if (cntPeoples.equalsIgnoreCase("любой"))
                 break;
@@ -126,7 +123,6 @@ public class CorrectSearchData {
                 break;
         }
         return new String[]{genre, type, cntSeries, rating, cntPeoples};
-
     }
 
 }
