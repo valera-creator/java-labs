@@ -8,13 +8,13 @@ public class Main {
     public static void main(String[] args) {
         String path = "src\\indiv1\\data_AUS_state.csv";
         StatesInformation statesInformation = new StatesInformation();
-        ParsingText(path, statesInformation);
+        parsingText(path, statesInformation);
 
         statesInformation.calculateAborigine();
         statesInformation.printCities();
     }
 
-    private static void ParsingText(String path, StatesInformation statesInformation) {
+    private static void parsingText(String path, StatesInformation statesInformation) {
         BufferedReader br;
         String line;
 
