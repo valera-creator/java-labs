@@ -11,12 +11,12 @@ public class Main {
         String pathJsonFile = "src\\indiv2\\output.json";
 
         WorkWithFiles.receiveInfo(pathTxtFile, animeList);
-        Anime.searchInfoGenres(animeList);
+        AnimeAction.searchInfoGenres(animeList);
 
         CorrectSearchData.chooseFilmOrSerial(scanner, animeList);
         String[] params = CorrectSearchData.inputParamSearch(scanner);
-        List<Anime> filterList = Anime.filterAnime(params, animeList);
-        Anime.printFilter(filterList);
+        List<Anime> filterList = AnimeAction.filterAnime(params, animeList);
+        AnimeAction.printFilter(filterList);
 
         List<Map<String, Object>> data = WorkWithFiles.convertToMapObj(filterList);
         WorkWithFiles.writeJson(data, pathJsonFile);

@@ -9,10 +9,10 @@ public class CorrectSearchData {
             System.out.print("Выбери, о чем хочешь получить информацию, введи \"фильм\" или \"сериал\": ");
             String s = scanner.nextLine().toLowerCase();
             if (s.equals("фильм")) {
-                Anime.searchFilms(animeList);
+                AnimeAction.searchFilms(animeList);
                 return;
             } else if (s.equals("сериал")) {
-                Anime.searchSerials(animeList);
+                AnimeAction.searchSerials(animeList);
                 return;
             } else
                 System.err.println("\nи чё означает \"" + s + "\"? Вводи по новой давай!");
